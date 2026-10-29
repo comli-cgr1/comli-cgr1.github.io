@@ -1,0 +1,34 @@
+/* Comunilife color system — exact values from comunilife.fig (finals-with-edits). */
+:root {
+  /* Base palette */
+  --cl-paper: rgb(251, 246, 238);      /* page background */
+  --cl-cream: rgb(244, 236, 221);      /* alternate section / footer background */
+  --cl-line: rgb(232, 223, 208);       /* hairline dividers & borders */
+  --cl-ink: rgb(31, 26, 46);           /* headings, primary text, solid buttons */
+  --cl-ink-soft: rgb(63, 58, 82);      /* body text */
+  --cl-ink-muted: rgb(107, 100, 120);  /* captions, legal, muted labels */
+  --cl-night: rgb(11, 6, 26);          /* dark "impact" section background */
+  --cl-white: rgb(255, 255, 255);
+
+  /* Brand accents */
+  --cl-orange: rgb(244, 119, 33);      /* primary accent — stats, dots, CTAs */
+  --cl-sky: rgb(0, 174, 239);          /* ticker bar, accents */
+  --cl-blue: rgb(0, 138, 209);         /* feature cards, quote blocks */
+  --cl-red: rgb(201, 37, 43);          /* careers panel, crisis, accents */
+  --cl-purple: rgb(86, 57, 150);       /* quotes, marquee, section labels */
+
+  /* Semantic aliases */
+  --surface-page: var(--cl-paper);
+  --surface-alt: var(--cl-cream);
+  --surface-dark: var(--cl-night);
+  --border-hairline: var(--cl-line);
+  --text-heading: var(--cl-ink);
+  --text-body: var(--cl-ink-soft);
+  --text-muted: var(--cl-ink-muted);
+  --text-on-color: var(--cl-paper);
+
+  /* On-color translucents (used on orange/blue/red panels) */
+  --line-on-color-dark: rgba(31, 26, 46, 0.2);     /* ink hairline on bright panels */
+  --line-on-color-light: rgba(251, 246, 238, 0.25);/* paper hairline on deep panels */
+  --text-on-dark-soft: rgba(251, 246, 238, 0.75);
+}

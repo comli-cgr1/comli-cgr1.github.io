@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comunilife Staff Desk</title>
+<meta name="robots" content="noindex">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/comunilife-design-system-ea236cd2-7d07-4ea6-a9ff-9b66b1b1aabd/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/comunilife-design-system-ea236cd2-7d07-4ea6-a9ff-9b66b1b1aabd/tokens/colors.css">
+<link rel="stylesheet" href="_ds/comunilife-design-system-ea236cd2-7d07-4ea6-a9ff-9b66b1b1aabd/tokens/typography.css">
+<link rel="stylesheet" href="_ds/comunilife-design-system-ea236cd2-7d07-4ea6-a9ff-9b66b1b1aabd/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/comunilife-design-system-ea236cd2-7d07-4ea6-a9ff-9b66b1b1aabd/styles.css">
+<script src="_ds/comunilife-design-system-ea236cd2-7d07-4ea6-a9ff-9b66b1b1aabd/_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--cl-paper); }
+  a { color: inherit; text-decoration: none; cursor: pointer; }
+  a:hover { color: var(--cl-orange); }
+  input, select, textarea { font-family: var(--font-mono); }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--cl-orange); outline-offset: -2px; }
+  button { cursor: pointer; }
+</style>
+</helmet>
+<div style="display: grid; grid-template-columns: {{ m.shell }}; min-height: 100vh; background: var(--cl-paper); color: var(--cl-ink); font-family: var(--font-body);">
+
+  <aside style="background: var(--cl-night); color: var(--cl-paper); padding: 32px 28px; display: {{ m.aside }}; flex-direction: column; gap: 36px; position: sticky; top: 0; height: 100vh; box-sizing: border-box; overflow-y: auto;">
+    <a onClick="{{ goHome }}" style="display: block;">
+      <div style="font-family: var(--font-display); font-weight: 600; font-size: 26px; letter-spacing: -0.5px;">Comunilife</div>
+      <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; color: var(--cl-orange); margin-top: 6px;">Staff desk</div>
+    </a>
+    <nav style="display: flex; flex-direction: column;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="9">
+        <a onClick="{{ n.go }}" style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 12px 0; border-top: 1px solid var(--line-on-color-light); font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.2px; color: {{ n.tint }};">
+          <span>{{ n.label }}</span><span style="opacity: .6; font-size: 10px;">{{ n.count }}</span>
+        </a>
+      </sc-for>
+    </nav>
+    <a onClick="{{ goOnCall }}" style="margin-top: auto; border-top: 1px solid var(--line-on-color-light); padding-top: 20px; display: flex; flex-direction: column; gap: 8px;">
+      <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cl-orange);">On call tonight</span>
+      <span style="font-family: var(--font-display); font-style: italic; font-size: 22px;">Angela Ruiz-Nunez</span>
+      <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: rgba(251,246,238,.75);">917-555-0148</span>
+    </a>
+  </aside>
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+    <header style="position: sticky; top: 0; z-index: 30; background: var(--cl-night); color: var(--cl-paper);">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 20px;">
+        <a onClick="{{ goHome }}" style="display: flex; align-items: baseline; gap: 10px;">
+          <span style="font-family: var(--font-display); font-weight: 600; font-size: 22px; letter-spacing: -0.5px;">Comunilife</span>
+          <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cl-orange);">Staff desk</span>
+        </a>
+        <button onClick="{{ toggleMenu }}" style="font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-on-color-light); background: transparent; color: var(--cl-paper);">{{ menuLabel }}</button>
+      </div>
+      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+        <nav style="display: flex; flex-direction: column; padding: 0 20px 24px; max-height: calc(100vh - 68px); overflow-y: auto; box-sizing: border-box;">
+          <sc-for list="{{ nav }}" as="n" hint-placeholder-count="10">
+            <a onClick="{{ n.go }}" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 48px; border-top: 1px solid var(--line-on-color-light); font-family: var(--font-mono); font-size: 13px; letter-spacing: 1.2px; color: {{ n.tint }};">
+              <span>{{ n.label }}</span><span style="opacity: .6; font-size: 11px;">{{ n.count }}</span>
+            </a>
+          </sc-for>
+          <a onClick="{{ goOnCall }}" style="border-top: 1px solid var(--line-on-color-light); padding-top: 16px; display: flex; flex-direction: column; gap: 6px;">
+            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cl-orange);">On call tonight</span>
+            <span style="font-family: var(--font-display); font-style: italic; font-size: 20px;">Angela Ruiz-Nunez</span>
+            <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: rgba(251,246,238,.75);">917-555-0148</span>
+          </a>
+        </nav>
+      </sc-if>
+    </header>
+  </sc-if>
+
+  <main style="padding: {{ m.mainPad }}; box-sizing: border-box; display: flex; flex-direction: column; gap: {{ m.mainGap }}; min-width: 0;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; color: var(--cl-ink-muted);">
+      <span style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="2">
+          <a onClick="{{ c.go }}" style="color: {{ c.tint }};">{{ c.label }}</a>
+        </sc-for>
+      </span>
+      <span style="display: flex; gap: 18px; align-items: center;">
+        <a onClick="{{ toggleLang }}" style="letter-spacing: 1.5px;">{{ langLabel }}</a>
+        <a onClick="{{ goMe }}" style="width: 32px; height: 32px; border-radius: 999px; background: var(--cl-purple); color: var(--cl-paper); font-weight: 700; display: flex; align-items: center; justify-content: center;">MV</a>
+      </span>
+    </div>
+
+    <!-- HOME -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <section style="display: flex; flex-direction: column; gap: 20px;">
+        <h1 style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(34px, 5vw, 64px); line-height: 1; letter-spacing: -0.03em; margin: 0;">What do you need, Marisol?</h1>
+        <div style="position: relative;">
+          <input type="text" placeholder="Search people, forms, policies, sites →" value="{{ query }}" onInput="{{ onQuery }}" style="width: 100%; box-sizing: border-box; font-size: 16px; letter-spacing: 1px; padding: {{ m.searchPad }}; border: 2px solid var(--cl-ink); background: var(--cl-white); color: var(--cl-ink);">
+          <sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; left: 0; right: 0; top: 100%; background: var(--cl-white); border: 2px solid var(--cl-ink); border-top: none; z-index: 10;">
+              <sc-for list="{{ results }}" as="r" hint-placeholder-count="4">
+                <a onClick="{{ r.go }}" style="display: grid; grid-template-columns: {{ m.searchCols }}; gap: 16px; align-items: baseline; padding: 14px 20px; border-top: 1px solid var(--border-hairline);" style-hover="background: var(--cl-cream);">
+                  <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: {{ r.tint }};">{{ r.type }}</span>
+                  <span style="font-family: var(--font-display); font-weight: 600; font-size: 18px;">{{ r.title }}</span>
+                  <span style="display: {{ m.desk }}; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--cl-ink-muted);">{{ r.meta }}</span>
+                </a>
+              </sc-for>
+              <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 18px 24px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; color: var(--cl-ink-muted);">No matches — try a site name or a role.</div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="5">
+            <button onClick="{{ s.go }}" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; padding: 9px 14px; border: 1px solid var(--border-hairline); background: transparent; color: var(--cl-ink-soft);">{{ s.label }}</button>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 1px; background: var(--cl-line); border: 1px solid var(--cl-line);">
+        <sc-for list="{{ todos }}" as="t" hint-placeholder-count="4">
+          <a onClick="{{ t.go }}" style="background: {{ t.bg }}; color: {{ t.fg }}; padding: 20px; display: flex; flex-direction: column; gap: 20px; min-height: 140px; box-sizing: border-box;">
+            <span style="font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.5px;">{{ t.tag }}</span>
+            <span style="font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.2; letter-spacing: -0.3px; margin-top: auto;">{{ t.title }}</span>
+            <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px;">{{ t.cta }} →</span>
+          </a>
+        </sc-for>
+      </section>
+
+      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 48px;">
+        <div style="min-width: 0;">
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="01" label="This week's shifts" color="var(--cl-orange)" hint-size="240px,16px"></x-import>
+          <div style="display: grid; grid-template-columns: {{ m.weekCols }}; gap: 1px; background: var(--cl-line); border: 1px solid var(--cl-line); margin-top: 24px;">
+            <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+              <a onClick="{{ goSchedule }}" style="background: {{ d.bg }}; color: {{ d.fg }}; padding: 12px; min-height: {{ m.dayMin }}; min-width: 0; overflow-wrap: anywhere; display: flex; flex-direction: {{ m.dayDir }}; align-items: {{ m.dayAlign }}; gap: 8px 14px;">
+                <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; opacity: .75;">{{ d.day }}</span>
+                <span style="font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1;">{{ d.date }}</span>
+                <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; margin-top: auto; margin-left: {{ m.hoursML }}; line-height: 1.5;">{{ d.hours }}</span>
+              </a>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px;">
+            <a onClick="{{ goSchedule }}" style="font-weight: 700; color: var(--cl-orange);">Open shifts &amp; coverage →</a>
+            <a onClick="{{ goSchedule }}" style="color: var(--cl-ink-muted);">Request a swap →</a>
+          </div>
+        </div>
+        <div style="min-width: 0;">
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="02" label="My requests" color="var(--cl-blue)" hint-size="200px,16px"></x-import>
+          <div style="margin-top: 24px;">
+            <sc-for list="{{ myRequests4 }}" as="r" hint-placeholder-count="4">
+              <a onClick="{{ goHelp }}" style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--border-hairline); padding: 14px 0;">
+                <span>
+                  <span style="display: block; font-family: var(--font-display); font-weight: 600; font-size: 18px;">{{ r.title }}</span>
+                  <span style="display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; color: var(--cl-ink-muted); margin-top: 4px;">{{ r.meta }}</span>
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.2px; padding: 5px 9px; background: {{ r.bg }}; color: {{ r.fg }};">{{ r.status }}</span>
+              </a>
+            </sc-for>
+            <div style="border-top: 1px solid var(--border-hairline); padding-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.2px;">
+              <sc-for list="{{ quickReqs }}" as="q" hint-placeholder-count="3">
+                <a onClick="{{ q.go }}">+ {{ q.label }}</a>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-top: 1px solid var(--border-hairline); padding-top: 40px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 24px;">
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="03" label="Announcements" color="var(--cl-purple)" hint-size="220px,16px"></x-import>
+          <a onClick="{{ goAnn }}" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--cl-orange);">All announcements →</a>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-top: 28px;">
+          <sc-for list="{{ annTop }}" as="a" hint-placeholder-count="3">
+            <a onClick="{{ a.go }}" style="border-top: 2px solid var(--cl-ink); padding-top: 18px; display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cl-orange);">{{ a.kind }} · {{ a.date }}</span>
+              <span style="font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.2; letter-spacing: -0.3px;">{{ a.title }}</span>
+              <span style="font-size: 14px; line-height: 1.6; color: var(--cl-ink-soft); text-wrap: pretty;">{{ a.dek }}</span>
+            </a>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- PAGE HEADER (all non-home pages) -->
+    <sc-if value="{{ hasHead }}" hint-placeholder-val="{{ false }}">
+      <section style="display: flex; flex-direction: column; gap: 18px; border-bottom: 1px solid var(--border-hairline); padding-bottom: 32px;">
+        <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; color: {{ head.accent }};">{{ head.eyebrow }}</span>
+        <h1 style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(34px, 5vw, 72px); line-height: 0.98; letter-spacing: -0.03em; margin: 0; text-wrap: pretty; max-width: 960px;">{{ head.title }}</h1>
+        <sc-if value="{{ head.lede }}" hint-placeholder-val="{{ true }}">
+          <p style="font-family: var(--font-display); font-style: italic; font-size: 20px; line-height: 1.45; color: var(--cl-ink-soft); max-width: 680px; margin: 0;">{{ head.lede }}</p>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <!-- ANNOUNCEMENTS -->
+    <sc-if value="{{ isAnn }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+        <sc-for list="{{ annTabs }}" as="a" hint-placeholder-count="4">
+          <button onClick="{{ a.go }}" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; padding: 9px 14px; border: 1px solid var(--cl-ink); background: {{ a.bg }}; color: {{ a.fg }};">{{ a.label }}</button>
+        </sc-for>
+      </div>
+      <div>
+        <sc-for list="{{ annList }}" as="a" hint-placeholder-count="5">
+          <a onClick="{{ a.go }}" style="display: grid; grid-template-columns: {{ m.annCols }}; gap: {{ m.annGap }}; border-top: 1px solid var(--border-hairline); padding: 22px 0;" style-hover="background: var(--cl-cream);">
+            <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; line-height: 1.9; color: var(--cl-ink-muted);"><span style="display: block;">{{ a.date }}</span><span style="display: block; color: var(--cl-orange);">{{ a.kind }}</span></span>
+            <span>
+              <span style="display: block; font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1.15; letter-spacing: -0.5px;">{{ a.title }}</span>
+              <span style="display: block; font-size: 15px; line-height: 1.6; color: var(--cl-ink-soft); margin-top: 8px; max-width: 680px;">{{ a.dek }}</span>
+              <span style="display: block; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; margin-top: 12px;">Read in full →</span>
+            </span>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <!-- ARTICLE -->
+    <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+      <article style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 56px; align-items: start;">
+        <div style="grid-column: {{ m.span2 }}; max-width: 700px; display: flex; flex-direction: column; gap: 18px; font-size: 17px; line-height: 1.75; color: var(--cl-ink-soft);">
+          <sc-for list="{{ article.paras }}" as="p" hint-placeholder-count="3">
+            <p style="margin: 0; text-wrap: pretty;">{{ p }}</p>
+          </sc-for>
+          <div style="border-left: 4px solid var(--cl-purple); padding: 6px 0 6px 20px; font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--cl-ink);">{{ article.author }}</div>
+        </div>
+        <div style="background: var(--cl-cream); border: 1px solid var(--border-hairline); padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+          <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;">More announcements</span>
+          <sc-for list="{{ article.more }}" as="mo" hint-placeholder-count="3">
+            <a onClick="{{ mo.go }}" style="border-top: 1px solid var(--border-hairline); padding-top: 12px; font-family: var(--font-display); font-weight: 600; font-size: 17px; line-height: 1.3;">{{ mo.title }}</a>
+          </sc-for>
+        </div>
+      </article>
+    </sc-if>
+
+    <!-- FORMS / POLICIES -->
+    <sc-if value="{{ isLib }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;">
+        <input type="text" placeholder="{{ libPlaceholder }}" value="{{ formQuery }}" onInput="{{ onFormQuery }}" style="flex: 1 1 240px; min-width: 0; font-size: {{ m.inputFs }}; letter-spacing: 1px; padding: 14px 16px; border: 1px solid var(--cl-ink); background: var(--cl-white); color: var(--cl-ink);">
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <sc-for list="{{ formCats }}" as="c" hint-placeholder-count="5">
+            <button onClick="{{ c.go }}" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; padding: 11px 14px; border: 1px solid var(--cl-ink); background: {{ c.bg }}; color: {{ c.fg }};">{{ c.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <sc-for list="{{ formList }}" as="f" hint-placeholder-count="8">
+          <a onClick="{{ f.go }}" style="display: grid; grid-template-columns: {{ m.formCols }}; gap: 20px; align-items: baseline; border-top: 1px solid var(--border-hairline); padding: 18px 0;" style-hover="background: var(--cl-cream);">
+            <span>
+              <span style="display: block; font-family: var(--font-display); font-weight: 600; font-size: 20px; letter-spacing: -0.3px;">{{ f.name }}</span>
+              <span style="display: block; font-size: 13px; line-height: 1.6; color: var(--cl-ink-muted); margin-top: 4px;">{{ f.note }}</span>
+              <span style="display: {{ m.mob }}; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; color: var(--cl-purple); margin-top: 6px;">{{ f.dept }} · {{ f.updated }}</span>
+            </span>
+            <span style="display: {{ m.desk }}; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; color: var(--cl-purple);">{{ f.dept }}</span>
+            <span style="display: {{ m.desk }}; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; color: var(--cl-ink-muted);">{{ f.updated }}</span>
+            <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-align: right; color: var(--cl-orange);">{{ f.format }} →</span>
+          </a>
+        </sc-for>
+        <sc-if value="{{ noForms }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 48px 0; font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--cl-ink-muted);">Nothing matches. Try a broader term or another department, or ask Compliance at ext. 2210.</div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- DOC DETAIL -->
+    <sc-if value="{{ isDoc }}" hint-placeholder-val="{{ false }}">
+      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px; align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 0;">
+          <sc-for list="{{ doc.rows }}" as="r" hint-placeholder-count="4">
+            <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; border-top: 1px solid var(--border-hairline); padding: 14px 0;">
+              <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cl-ink-muted);">{{ r.k }}</span>
+              <span style="font-size: 15px;">{{ r.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background: var(--cl-cream); border: 1px solid var(--border-hairline); padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+          <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;">{{ doc.format }} · {{ doc.size }}</span>
+          <button onClick="{{ doc.action }}" style="font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; padding: 16px 20px; border: none; background: var(--cl-ink); color: var(--cl-paper); text-align: left;">{{ doc.actionLabel }}</button>
+          <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; color: var(--cl-ink-muted);">{{ doc.status }}</span>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- PEOPLE -->
+    <sc-if value="{{ isPeople }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;">
+        <input type="text" placeholder="Search by name, role, or site" value="{{ peopleQuery }}" onInput="{{ onPeopleQuery }}" style="flex: 1 1 240px; min-width: 0; font-size: {{ m.inputFs }}; letter-spacing: 1px; padding: 14px 16px; border: 1px solid var(--cl-ink); background: var(--cl-white); color: var(--cl-ink);">
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <sc-for list="{{ programFilters }}" as="p" hint-placeholder-count="5">
+            <button onClick="{{ p.go }}" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; padding: 11px 14px; border: 1px solid var(--cl-ink); background: {{ p.bg }}; color: {{ p.fg }};">{{ p.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1px; background: var(--cl-line); border: 1px solid var(--cl-line);">
+        <sc-for list="{{ peopleList }}" as="p" hint-placeholder-count="9">
+          <a onClick="{{ p.go }}" style="background: var(--cl-paper); padding: 24px; display: flex; flex-direction: column; gap: 16px;" style-hover="background: var(--cl-cream);">
+            <span style="display: flex; align-items: center; gap: 14px;">
+              <span style="width: 44px; height: 44px; border-radius: 999px; background: {{ p.tint }}; color: var(--cl-paper); font-family: var(--font-mono); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none;">{{ p.initials }}</span>
+              <span>
+                <span style="display: block; font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.2;">{{ p.name }}</span>
+                <span style="display: block; font-size: 13px; color: var(--cl-ink-soft); margin-top: 2px;">{{ p.role }}</span>
+              </span>
+            </span>
+            <span style="border-top: 1px solid var(--border-hairline); padding-top: 12px; display: flex; flex-direction: column; gap: 5px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.1px; color: var(--cl-ink-muted);">
+              <span style="color: var(--cl-purple);">{{ p.program }}</span>
+              <span>{{ p.siteName }} · ext. {{ p.ext }}</span>
+            </span>
+          </a>
+        </sc-for>
+      </div>
+      <sc-if value="{{ noPeople }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--cl-ink-muted);">No one by that name. Try a site or a role instead.</div>
+      </sc-if>
+    </sc-if>
+
+    <!-- PERSON -->
+    <sc-if value="{{ isPerson }}" hint-placeholder-val="{{ false }}">
+      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px; align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <span style="width: 120px; height: 120px; border-radius: 999px; background: {{ person.tint }}; color: var(--cl-paper); font-family: var(--font-mono); font-size: 32px; font-weight: 700; display: flex; align-items: center; justify-content: center;">{{ person.initials }}</span>
+          <div>
+            <sc-for list="{{ person.rows }}" as="r" hint-placeholder-count="5">
+              <div style="display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; border-top: 1px solid var(--border-hairline); padding: 13px 0;">
+                <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cl-ink-muted);">{{ r.k }}</span>
+                <a onClick="{{ r.go }}" style="font-size: 15px; color: {{ r.tint }};">{{ r.v }}</a>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1px; background: var(--cl-line); border: 1px solid var(--cl-line);">
+          <a href="{{ person.mailto }}" style="background: var(--cl-orange); color: var(--cl-ink); padding: 24px; font-family: var(--font-display); font-style: italic; font-size: 26px;">Email {{ person.first }} →</a>
+          <a href="{{ person.tel }}" style="background: var(--cl-sky); color: var(--cl-ink); padding: 24px; font-family: var(--font-display); font-style: italic; font-size: 26px;">Call ext. {{ person.ext }} →</a>
+          <a onClick="{{ person.goSite }}" style="background: var(--cl-paper); padding: 24px; font-family: var(--font-display); font-style: italic; font-size: 26px;">See {{ person.siteName }} →</a>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- SITES -->
+    <sc-if value="{{ isSites }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+        <sc-for list="{{ boroughs }}" as="b" hint-placeholder-count="5">
+          <button onClick="{{ b.go }}" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; padding: 9px 14px; border: 1px solid var(--cl-ink); background: {{ b.bg }}; color: {{ b.fg }};">{{ b.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--cl-line); border: 1px solid var(--cl-line);">
+        <sc-for list="{{ siteList }}" as="s" hint-placeholder-count="8">
+          <a onClick="{{ s.go }}" style="background: var(--cl-paper); padding: 24px; display: flex; flex-direction: column; gap: 10px; min-height: 170px;" style-hover="background: var(--cl-cream);">
+            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cl-purple);">{{ s.borough }} · {{ s.program }}</span>
+            <span style="font-family: var(--font-display); font-weight: 600; font-size: 24px; letter-spacing: -0.3px;">{{ s.name }}</span>
+            <span style="font-size: 14px; color: var(--cl-ink-soft);">{{ s.address }}</span>
+            <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.1px; color: var(--cl-ink-muted); margin-top: auto;">{{ s.leadName }} · {{ s.phone }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <!-- SITE -->
+    <sc-if value="{{ isSite }}" hint-placeholder-val="{{ false }}">
+      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px; align-items: start;">
+        <div>
+          <sc-for list="{{ site.rows }}" as="r" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; border-top: 1px solid var(--border-hairline); padding: 13px 0;">
+              <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cl-ink-muted);">{{ r.k }}</span>
+              <a onClick="{{ r.go }}" style="font-size: 15px; color: {{ r.tint }};">{{ r.v }}</a>
+            </div>
+          </sc-for>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 20px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.2px;">
+            <a onClick="{{ site.goWorkOrder }}" style="color: var(--cl-orange);">+ Work order for this site</a>
+            <a onClick="{{ site.goIncident }}">+ Incident report</a>
+          </div>
+        </div>
+        <div>
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="01" label="Staff at this site" color="var(--cl-blue)" hint-size="220px,16px"></x-import>
+          <div style="margin-top: 18px;">
+            <sc-for list="{{ site.staff }}" as="p" hint-placeholder-count="3">
+              <a onClick="{{ p.go }}" style="display: flex; align-items: center; gap: 14px; border-top: 1px solid var(--border-hairline); padding: 12px 0;">
+                <span style="width: 34px; height: 34px; border-radius: 999px; background: {{ p.tint }}; color: var(--cl-paper); font-family: var(--font-mono); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none;">{{ p.initials }}</span>
+                <span style="flex: 1; font-family: var(--font-display); font-weight: 600; font-size: 17px;">{{ p.name }}</span>
+                <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; color: var(--cl-ink-muted);">{{ p.role }}</span>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- SCHEDULE -->
+    <sc-if value="{{ isSchedule }}" hint-placeholder-val="{{ false }}">
+      <div style="display: grid; grid-template-columns: {{ m.weekCols }}; gap: 1px; background: var(--cl-line); border: 1px solid var(--cl-line);">
+        <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+          <div style="background: {{ d.bg }}; color: {{ d.fg }}; padding: 16px 12px; min-height: {{ m.dayMinL }}; min-width: 0; overflow-wrap: anywhere; display: flex; flex-direction: {{ m.dayDir }}; align-items: {{ m.dayAlign }}; gap: 8px 14px;">
+            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; opacity: .75;">{{ d.day }}</span>
+            <span style="font-family: var(--font-display); font-weight: 600; font-size: 32px; line-height: 1;">{{ d.date }}</span>
+            <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; margin-top: auto; margin-left: {{ m.hoursML }}; line-height: 1.5;">{{ d.hours }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 48px;">
+        <div>
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="01" label="Open shifts near you" color="var(--cl-red)" hint-size="220px,16px"></x-import>
+          <div style="margin-top: 18px;">
+            <sc-for list="{{ openShifts }}" as="s" hint-placeholder-count="3">
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; border-top: 1px solid var(--border-hairline); padding: 16px 0;">
+                <span>
+                  <span style="display: block; font-family: var(--font-display); font-weight: 600; font-size: 19px;">{{ s.when }}</span>
+                  <span style="display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; color: var(--cl-ink-muted); margin-top: 4px;">{{ s.where }}</span>
+                </span>
+                <button onClick="{{ s.go }}" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; padding: 10px 14px; border: 1px solid var(--cl-ink); background: {{ s.bg }}; color: {{ s.fg }};">{{ s.label }}</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="02" label="Swap a shift" color="var(--cl-blue)" hint-size="180px,16px"></x-import>
+          <div style="margin-top: 18px; background: var(--cl-cream); border: 1px solid var(--border-hairline); padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--cl-ink-soft);">Pick one of your shifts. Darnell Whitaker approves swaps for Sea Park East, usually the same day.</p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <sc-for list="{{ swapOpts }}" as="o" hint-placeholder-count="3">
+                <button onClick="{{ o.go }}" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; padding: 9px 12px; border: 1px solid var(--cl-ink); background: {{ o.bg }}; color: {{ o.fg }};">{{ o.label }}</button>
+              </sc-for>
+            </div>
+            <button onClick="{{ submitSwap }}" style="font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; padding: 14px 18px; border: none; background: var(--cl-ink); color: var(--cl-paper); text-align: left;">{{ swapLabel }}</button>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- BENEFITS -->
+    <sc-if value="{{ isBenefits }}" hint-placeholder-val="{{ false }}">
+      <section style="background: {{ fsa.bg }}; color: var(--cl-ink); padding: {{ m.panelPad }}; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
+        <div>
+          <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;">{{ fsa.tag }}</div>
+          <div style="font-family: var(--font-display); font-style: italic; font-size: clamp(26px, 4vw, 34px); letter-spacing: -1px; margin-top: 8px;">{{ fsa.title }}</div>
+        </div>
+        <button onClick="{{ fsa.go }}" style="font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; padding: 16px 22px; border: none; background: var(--cl-ink); color: var(--cl-paper);">{{ fsa.label }}</button>
+      </section>
+      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 48px;">
+        <div>
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="01" label="Your plans" color="var(--cl-purple)" hint-size="160px,16px"></x-import>
+          <div style="margin-top: 18px;">
+            <sc-for list="{{ plans }}" as="p" hint-placeholder-count="4">
+              <a onClick="{{ p.go }}" style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--border-hairline); padding: 14px 0;">
+                <span><span style="display: block; font-family: var(--font-display); font-weight: 600; font-size: 19px;">{{ p.name }}</span><span style="display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; color: var(--cl-ink-muted); margin-top: 4px;">{{ p.detail }}</span></span>
+                <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px;">{{ p.cost }}</span>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="02" label="Pay &amp; tax" color="var(--cl-orange)" hint-size="160px,16px"></x-import>
+          <div style="margin-top: 18px;">
+            <sc-for list="{{ stubs }}" as="s" hint-placeholder-count="4">
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--border-hairline); padding: 14px 0;">
+                <span style="font-family: var(--font-display); font-weight: 600; font-size: 18px;">{{ s.label }}</span>
+                <button onClick="{{ s.go }}" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; border: none; background: transparent; color: var(--cl-orange); padding: 0;">{{ s.action }}</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="03" label="Holidays 2026–27" color="var(--cl-red)" hint-size="200px,16px"></x-import>
+          <div style="margin-top: 18px;">
+            <sc-for list="{{ holidays }}" as="h" hint-placeholder-count="5">
+              <div style="display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 16px; border-top: 1px solid var(--border-hairline); padding: 12px 0;">
+                <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; color: var(--cl-ink-muted);">{{ h.d }}</span>
+                <span style="font-size: 15px;">{{ h.n }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- TRAINING -->
+    <sc-if value="{{ isTraining }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <sc-for list="{{ modules }}" as="mod" hint-placeholder-count="5">
+          <div style="display: grid; grid-template-columns: {{ m.trainCols }}; gap: {{ m.trainGap }}; align-items: center; border-top: 1px solid var(--border-hairline); padding: 20px 0;">
+            <span style="font-family: var(--font-display); font-style: italic; font-size: 28px; color: var(--cl-ink-muted);">{{ mod.n }}</span>
+            <span>
+              <span style="display: block; font-family: var(--font-display); font-weight: 600; font-size: 20px;">{{ mod.title }}</span>
+              <span style="display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; color: var(--cl-ink-muted); margin-top: 4px;">{{ mod.meta }}</span>
+            </span>
+            <span style="height: 6px; background: var(--cl-line); position: relative; display: {{ m.desk2 }};"><span style="position: absolute; left: 0; top: 0; bottom: 0; width: {{ mod.pct }}; background: {{ mod.bar }};"></span></span>
+            <button onClick="{{ mod.go }}" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; padding: 10px 14px; border: 1px solid var(--cl-ink); background: {{ mod.bg }}; color: {{ mod.fg }}; min-width: 96px; min-height: 44px;">{{ mod.label }}</button>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <!-- HELP DESK / REQUEST -->
+    <sc-if value="{{ isHelp }}" hint-placeholder-val="{{ false }}">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 1px; background: var(--cl-line); border: 1px solid var(--cl-line);">
+        <sc-for list="{{ reqTabs }}" as="t" hint-placeholder-count="4">
+          <a onClick="{{ t.go }}" style="background: {{ t.bg }}; color: {{ t.fg }}; padding: 20px; display: flex; flex-direction: column; gap: 16px; min-height: 110px;">
+            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px;">{{ t.meta }}</span>
+            <span style="font-family: var(--font-display); font-style: italic; font-size: 24px; margin-top: auto;">{{ t.label }}</span>
+          </a>
+        </sc-for>
+      </div>
+      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 48px; align-items: start;">
+        <div>
+          <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+            <form onSubmit="{{ submitReq }}" style="display: flex; flex-direction: column; gap: 18px;">
+              <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="01" label="{{ reqType.label }}" color="var(--cl-orange)" hint-size="200px,16px"></x-import>
+              <sc-for list="{{ reqType.fields }}" as="f" hint-placeholder-count="3">
+                <label style="display: flex; flex-direction: column; gap: 8px;">
+                  <span style="font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.5px;">{{ f.label }}</span>
+                  <sc-if value="{{ f.isInput }}" hint-placeholder-val="{{ true }}">
+                    <input type="{{ f.type }}" name="{{ f.label }}" style="font-size: 13px; letter-spacing: .5px; padding: 13px 14px; border: 1px solid var(--cl-ink); background: var(--cl-white); color: var(--cl-ink);">
+                  </sc-if>
+                  <sc-if value="{{ f.isSelect }}" hint-placeholder-val="{{ false }}">
+                    <select name="{{ f.label }}" style="font-size: 13px; padding: 13px 14px; border: 1px solid var(--cl-ink); background: var(--cl-white); color: var(--cl-ink);">
+                      <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="3"><option>{{ o }}</option></sc-for>
+                    </select>
+                  </sc-if>
+                  <sc-if value="{{ f.isArea }}" hint-placeholder-val="{{ false }}">
+                    <textarea name="{{ f.label }}" rows="4" style="font-size: 13px; padding: 13px 14px; border: 1px solid var(--cl-ink); background: var(--cl-white); color: var(--cl-ink); resize: vertical;"></textarea>
+                  </sc-if>
+                </label>
+              </sc-for>
+              <button type="submit" style="align-self: flex-start; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; padding: 16px 22px; border: none; background: var(--cl-ink); color: var(--cl-paper);">Submit {{ reqType.short }} →</button>
+            </form>
+          </sc-if>
+          <sc-if value="{{ showConfirm }}" hint-placeholder-val="{{ false }}">
+            <div style="background: var(--cl-blue); color: var(--cl-paper); padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+              <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;">Submitted · {{ confirmId }}</span>
+              <span style="font-family: var(--font-display); font-style: italic; font-size: 34px; line-height: 1.1; letter-spacing: -1px;">Got it. {{ reqType.route }}</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; margin-top: 8px;">
+                <a onClick="{{ resetReq }}">Submit another →</a>
+                <a onClick="{{ goHome }}">Back to home →</a>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <div>
+          <x-import component-from-global-scope="ComunilifeDesignSystem_ea236c.SectionLabel" number="02" label="My requests" color="var(--cl-blue)" hint-size="160px,16px"></x-import>
+          <div style="margin-top: 18px;">
+            <sc-for list="{{ myRequests }}" as="r" hint-placeholder-count="4">
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--border-hairline); padding: 14px 0;">
+                <span>
+                  <span style="display: block; font-family: var(--font-display); font-weight: 600; font-size: 18px;">{{ r.title }}</span>
+                  <span style="display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; color: var(--cl-ink-muted); margin-top: 4px;">{{ r.meta }}</span>
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.2px; padding: 5px 9px; background: {{ r.bg }}; color: {{ r.fg }};">{{ r.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SITES = [
+  { id: 'spe', name: 'Sea Park East', borough: 'Brooklyn', program: 'Health & Housing', address: '2711 W 15th St, Brooklyn, NY 11224', phone: '718-555-0311', lead: 'dw', units: '112 supportive units' },
+  { id: 'eny', name: 'East New York', borough: 'Brooklyn', program: 'Health & Housing', address: '640 Pennsylvania Ave, Brooklyn, NY 11207', phone: '718-555-0287', lead: 'rb', units: '68 supportive units' },
+  { id: 'gc', name: 'Grand Concourse Respite', borough: 'Bronx', program: 'Medical Respite', address: '2050 Grand Concourse, Bronx, NY 10457', phone: '718-555-0148', lead: 'ar', units: '80 respite beds' },
+  { id: 'fh', name: 'Fordham', borough: 'Bronx', program: 'Life is Precious™', address: '2488 Grand Ave, Bronx, NY 10468', phone: '718-555-0405', lead: 'yc', units: 'After-school center' },
+  { id: 'mh', name: 'Mott Haven', borough: 'Bronx', program: 'Health & Housing', address: '425 E 140th St, Bronx, NY 10454', phone: '718-555-0340', lead: 'co', units: '54 supportive units' },
+  { id: 'ho', name: 'Home office', borough: 'Manhattan', program: 'Administration', address: '214 W 29th St, New York, NY 10001', phone: '212-555-2000', lead: 'mf', units: 'HR, Finance, IT, Compliance' },
+  { id: 'wh', name: 'Washington Heights', borough: 'Manhattan', program: 'Community Engagement', address: '4111 Broadway, New York, NY 10033', phone: '212-555-0588', lead: 'so', units: 'Care coordination hub' },
+  { id: 'jm', name: 'Jamaica', borough: 'Queens', program: 'Community Engagement', address: '89-14 Parsons Blvd, Queens, NY 11432', phone: '718-555-0622', lead: 'td', units: 'Care coordination hub' },
+];
+const PEOPLE = [
+  { id: 'mv', name: 'Marisol Vega', role: 'Case manager', program: 'Health & Housing', site: 'spe', ext: '2302', mgr: 'dw', langs: 'English, Spanish', since: '2019', tint: 'var(--cl-purple)' },
+  { id: 'ar', name: 'Angela Ruiz-Nunez', role: 'Site manager', program: 'Medical Respite', site: 'gc', ext: '2148', mgr: 'pr', langs: 'English, Spanish', since: '2014', tint: 'var(--cl-red)' },
+  { id: 'dw', name: 'Darnell Whitaker', role: 'Site director', program: 'Health & Housing', site: 'spe', ext: '2311', mgr: 'mf', langs: 'English', since: '2012', tint: 'var(--cl-blue)' },
+  { id: 'yc', name: 'Yesenia Colón', role: 'Program director', program: 'Life is Precious™', site: 'fh', ext: '2405', mgr: 'mf', langs: 'English, Spanish', since: '2010', tint: 'var(--cl-purple)' },
+  { id: 'mf', name: 'Marcus Feld', role: 'Benefits manager', program: 'Administration', site: 'ho', ext: '2012', mgr: null, langs: 'English', since: '2016', tint: 'var(--cl-ink)' },
+  { id: 'pr', name: 'Priya Raman', role: 'Nurse practitioner', program: 'Medical Respite', site: 'gc', ext: '2156', mgr: 'mf', langs: 'English, Hindi', since: '2018', tint: 'var(--cl-red)' },
+  { id: 'td', name: 'Tomás Delgado', role: 'Case manager', program: 'Community Engagement', site: 'jm', ext: '2622', mgr: 'so', langs: 'English, Spanish', since: '2021', tint: 'var(--cl-orange)' },
+  { id: 'rb', name: 'Renée Baptiste', role: 'Housing specialist', program: 'Health & Housing', site: 'eny', ext: '2287', mgr: 'dw', langs: 'English, French', since: '2017', tint: 'var(--cl-blue)' },
+  { id: 'ip', name: 'Ivan Petrosyan', role: 'Facilities lead', program: 'Administration', site: 'fh', ext: '2103', mgr: 'mf', langs: 'English, Russian', since: '2015', tint: 'var(--cl-ink)' },
+  { id: 'so', name: 'Sandra Oyelaran', role: 'Care coordination director', program: 'Community Engagement', site: 'wh', ext: '2588', mgr: 'mf', langs: 'English, Yoruba', since: '2013', tint: 'var(--cl-orange)' },
+  { id: 'lf', name: 'Luis Ferreira', role: 'Counselor', program: 'Life is Precious™', site: 'fh', ext: '2431', mgr: 'yc', langs: 'English, Spanish, Portuguese', since: '2020', tint: 'var(--cl-purple)' },
+  { id: 'hw', name: 'Hannah Weiss', role: 'Peer specialist', program: 'Health & Housing', site: 'spe', ext: '2298', mgr: 'dw', langs: 'English', since: '2022', tint: 'var(--cl-blue)' },
+  { id: 'ga', name: 'Grace Adeyemi', role: 'Compliance analyst', program: 'Administration', site: 'ho', ext: '2210', mgr: 'mf', langs: 'English', since: '2019', tint: 'var(--cl-ink)' },
+  { id: 'co', name: 'Carmen Ortiz', role: 'Site director', program: 'Health & Housing', site: 'mh', ext: '2340', mgr: 'mf', langs: 'English, Spanish', since: '2011', tint: 'var(--cl-blue)' },
+];
+const DOCS = [
+  { id: 'd1', type: 'form', name: 'Time off request', note: 'Submit at least two weeks ahead; your supervisor approves in the same form.', dept: 'Human Resources', updated: 'Aug 19, 2026', format: 'Web', req: 'timeoff' },
+  { id: 'd2', type: 'form', name: 'Incident report — site (v3)', note: 'Use for any incident at a residential or respite site within 24 hours.', dept: 'Program Operations', updated: 'Aug 24, 2026', format: 'Web', req: 'incident' },
+  { id: 'd3', type: 'form', name: 'Facilities work order', note: 'Heat, plumbing, locks, pest control. Emergencies go to ext. 2100 first.', dept: 'Facilities', updated: 'Aug 15, 2026', format: 'Web', req: 'facilities' },
+  { id: 'd4', type: 'form', name: 'IT help desk ticket', note: 'Laptops, phones, accounts, and system access.', dept: 'IT', updated: 'Jul 02, 2026', format: 'Web', req: 'it' },
+  { id: 'd5', type: 'form', name: 'Annual conflict of interest disclosure', note: 'Required of all staff each year. Takes about four minutes.', dept: 'Compliance', updated: 'Aug 28, 2026', format: 'PDF', size: '180 KB' },
+  { id: 'd6', type: 'form', name: 'Mileage & expense reimbursement', note: 'Attach receipts; paid with the following pay period.', dept: 'Finance', updated: 'Jul 30, 2026', format: 'XLSX', size: '60 KB' },
+  { id: 'd7', type: 'form', name: 'Direct deposit authorization', note: 'New account or a change of bank. Takes effect in one to two pay periods.', dept: 'Finance', updated: 'May 14, 2026', format: 'PDF', size: '75 KB' },
+  { id: 'd9', type: 'form', name: 'Qualifying life event change', note: 'Marriage, birth, adoption, or loss of coverage — file within 30 days.', dept: 'Human Resources', updated: 'Sep 30, 2026', format: 'PDF', size: '110 KB' },
+  { id: 'd12', type: 'form', name: 'Building access badge request', note: 'New, lost, or damaged badges for any Comunilife site.', dept: 'Facilities', updated: 'Jun 03, 2026', format: 'PDF', size: '65 KB' },
+  { id: 'd13', type: 'form', name: 'Housing eligibility worksheet', note: 'Completed with the applicant before a housing referral is submitted.', dept: 'Program Operations', updated: 'Aug 11, 2026', format: 'PDF', size: '340 KB' },
+  { id: 'd8', type: 'policy', name: 'Language access & interpretation policy', note: 'How to request Spanish, French, and ASL interpretation for any meeting.', dept: 'Program Operations', updated: 'Aug 04, 2026', format: 'PDF', size: '240 KB' },
+  { id: 'd14', type: 'policy', name: 'Emergency & after-hours escalation policy', note: 'Who to call, in what order, at what hour. Print one for every site office.', dept: 'Program Operations', updated: 'Jul 22, 2026', format: 'PDF', size: '420 KB' },
+  { id: 'd10', type: 'policy', name: 'Benefits enrollment guide 2027', note: 'Plans, costs, eligibility, and how to file a qualifying life event.', dept: 'Human Resources', updated: 'Sep 30, 2026', format: 'PDF', size: '2.4 MB' },
+  { id: 'd11', type: 'policy', name: 'Workplace conduct & anti-harassment policy', note: 'Annual acknowledgement required alongside compliance training.', dept: 'Human Resources', updated: 'Jun 12, 2026', format: 'PDF', size: '310 KB' },
+  { id: 'd15', type: 'policy', name: 'Time & attendance policy', note: 'Clocking in, overtime approval, and call-out procedures.', dept: 'Human Resources', updated: 'Apr 08, 2026', format: 'PDF', size: '190 KB' },
+  { id: 'd16', type: 'policy', name: 'Travel & expense policy', note: 'What is reimbursable, mileage rates, and approval limits.', dept: 'Finance', updated: 'Jan 15, 2026', format: 'PDF', size: '150 KB' },
+  { id: 'd17', type: 'policy', name: 'Acceptable use of technology', note: 'Laptops, phones, email, and passwords on and off the network.', dept: 'IT', updated: 'Mar 02, 2026', format: 'PDF', size: '130 KB' },
+  { id: 'd18', type: 'policy', name: 'Code of ethics & whistleblower policy', note: 'How to raise a concern confidentially, and how you are protected.', dept: 'Compliance', updated: 'Feb 20, 2026', format: 'PDF', size: '220 KB' },
+  { id: 'd19', type: 'policy', name: 'Records privacy & confidentiality', note: 'Handling participant and staff records, on paper and on screen.', dept: 'Compliance', updated: 'May 28, 2026', format: 'PDF', size: '260 KB' },
+  { id: 'd20', type: 'policy', name: 'Building safety & visitor policy', note: 'Sign-in, visiting hours, and fire safety at every site.', dept: 'Facilities', updated: 'Jul 01, 2026', format: 'PDF', size: '170 KB' },
+];
+const ANN = [
+  { id: 'a1', kind: 'All staff', date: 'Oct 27', author: 'Dr. Rosa M. Gil, President & CEO', title: 'Town hall recap: Social Care Network year one', dek: 'What changed for care coordinators, what stays the same, and where to find the Spanish recording.', paras: ['Twelve months ago we joined the state’s Social Care Network with a simple promise: no participant would have to tell their story twice. Today, more than 4,200 New Yorkers have been screened once and referred everywhere they needed to go.', 'For care coordinators, the documentation now lives in one place. For site staff, nothing changes in how you work with residents — but you will see more referrals arriving with a completed screening attached.', 'Slides and the full recording, in English and Spanish, are in Policies under “Town hall”. Thank you for carrying this.'] },
+  { id: 'a2', kind: 'HR', date: 'Oct 22', author: 'Marcus Feld, Benefits', title: 'FSA elections close Friday — they do not roll over', dek: 'Medical, dental, and vision carry over automatically. The FSA must be re-elected each year.', paras: ['Open enrollment closes Friday, October 30 at 5pm. If you do nothing, your medical, dental, and vision elections continue into 2027.', 'Your flexible spending account does not. If you want one in 2027, re-elect it on the Benefits & HR page — it takes under a minute.', 'Questions in English or Spanish: ext. 2012.'] },
+  { id: 'a3', kind: 'Sites', date: 'Oct 20', author: 'Ivan Petrosyan, Facilities', title: 'Heating season begins: report outages within the hour', dek: 'Call ext. 2100 for any no-heat unit, then file the work order so the repair is tracked.', paras: ['City heat season runs October 1 through May 31. Any unit below 68°F during the day is a priority.', 'Call ext. 2100 first so a technician is dispatched, then file a work order from the Help desk so the repair is tracked against the unit.'] },
+  { id: 'a4', kind: 'HR', date: 'Oct 14', author: 'Human Resources', title: 'Welcome to 14 new colleagues this month', dek: 'Most are joining Medical Respite and Health & Housing in the Bronx. Orientation is Nov 3.', paras: ['Fourteen colleagues join us this month, most at Grand Concourse Respite and Mott Haven.', 'Orientation is Tuesday, November 3 at the home office. If you are a site buddy, your new colleague’s name is in your inbox.'] },
+  { id: 'a5', kind: 'Sites', date: 'Oct 09', author: 'Ivan Petrosyan, Facilities', title: 'Fordham elevator replacement through Nov 20', dek: 'Use the south stair. Participants with mobility needs should meet staff in the ground-floor office.', paras: ['The Fordham passenger elevator is being replaced and will be out of service through November 20.', 'Please schedule participants with mobility needs in the ground-floor office for the duration.'] },
+];
+const REQ = {
+  timeoff: { label: 'Time off', short: 'request', meta: 'HR · supervisor approves', route: 'Darnell Whitaker will approve or reply within two business days.', fields: [['Start date', 'date'], ['End date', 'date'], ['Type', 'select', ['Vacation', 'Sick', 'Personal', 'Bereavement', 'Jury duty']], ['Note for your supervisor', 'area']] },
+  it: { label: 'IT ticket', short: 'ticket', meta: 'Help desk · ext. 2000', route: 'IT will reach you by phone or email within four business hours.', fields: [['Category', 'select', ['Laptop', 'Phone', 'Email & accounts', 'System access', 'Printer', 'Other']], ['Asset tag (on the sticker)', 'text'], ['What is happening?', 'area']] },
+  facilities: { label: 'Work order', short: 'work order', meta: 'Facilities · 24-hr response', route: 'Facilities will schedule a visit and notify the site office.', fields: [['Site', 'select', SITES.map((s) => s.name)], ['Unit or room', 'text'], ['Issue', 'select', ['Heat', 'Plumbing', 'Locks', 'Pest control', 'Electrical', 'Other']], ['Details', 'area']] },
+  incident: { label: 'Incident report', short: 'report', meta: 'Program Ops · within 24 hrs', route: 'Your site director and Quality have been notified automatically.', fields: [['Site', 'select', SITES.map((s) => s.name)], ['Date & time', 'datetime-local'], ['Participant initials', 'text'], ['What happened?', 'area']] },
+};
+const STATUS = { Approved: ['var(--cl-blue)', 'var(--cl-paper)'], 'In progress': ['var(--cl-sky)', 'var(--cl-ink)'], Scheduled: ['var(--cl-cream)', 'var(--cl-ink)'], Paid: ['var(--cl-paper)', 'var(--cl-ink-muted)'], Submitted: ['var(--cl-orange)', 'var(--cl-ink)'] };
+const P = (id) => PEOPLE.find((p) => p.id === id);
+const S = (id) => SITES.find((s) => s.id === id);
+const ini = (n) => n.split(' ').map((w) => w[0]).slice(0, 2).join('');
+
+class Component extends DCLogic {
+  state = {
+    page: 'home', id: null, query: '', dept: 'All', menu: false, w: typeof window !== 'undefined' ? window.innerWidth : 1200, ann: 'All', formCat: 'All', formQuery: '', program: 'All', peopleQuery: '', borough: 'All',
+    reqType: 'timeoff', submitted: null, lang: 'EN', fsaDone: false, picked: {}, swap: null, swapSent: false, downloaded: {}, stubDl: {},
+    mods: { m1: 100, m2: 100, m3: 60, m4: 0, m5: 0 },
+    requests: [
+      { title: 'Time off · Nov 26–27', meta: 'HR · filed Oct 12', status: 'Approved' },
+      { title: 'Laptop battery replacement', meta: 'IT #4471 · filed Oct 21', status: 'In progress' },
+      { title: 'Unit 4C radiator', meta: 'Facilities #2290 · filed Oct 26', status: 'Scheduled' },
+      { title: 'Mileage — September', meta: 'Finance · filed Oct 02', status: 'Paid' },
+    ],
+  };
+
+  componentDidMount() { this.onResize = () => this.setState({ w: window.innerWidth }); window.addEventListener('resize', this.onResize); this.onResize(); }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+  go(page, id = null, extra = {}) {
+    return (e) => { if (e && e.preventDefault) e.preventDefault(); const lib = page === 'forms' || page === 'policies'; this.setState({ page, id, query: '', menu: false, ...(lib && page !== this.state.page ? { dept: 'All', formQuery: '' } : {}), ...extra }); window.scrollTo(0, 0); };
+  }
+  chip(on) { return on ? { bg: 'var(--cl-ink)', fg: 'var(--cl-paper)' } : { bg: 'transparent', fg: 'var(--cl-ink)' }; }
+
+  renderVals() {
+    const st = this.state, pg = st.page;
+    const go = this.go.bind(this);
+    const curDoc = pg === 'doc' ? (DOCS.find((x) => x.id === st.id) || DOCS[0]) : null;
+    const section = { article: 'announcements', doc: curDoc && curDoc.type === 'policy' ? 'policies' : 'forms', person: 'people', site: 'sites' }[pg] || pg;
+    const libType = pg === 'policies' ? 'policy' : 'form';
+    const nForms = DOCS.filter((d) => d.type === 'form').length, nPol = DOCS.length - nForms;
+    const navDef = [['home', 'Home', ''], ['announcements', 'Announcements', '2 new'], ['schedule', 'Schedule', ''], ['forms', 'Forms', String(nForms)], ['policies', 'Policies', String(nPol)], ['people', 'People', '612'], ['sites', 'Sites', '23'], ['benefits', 'Benefits & HR', st.fsaDone ? '' : '1 due'], ['training', 'Training', ''], ['help', 'Help desk', '']];
+    const navLabel = Object.fromEntries(navDef.map((n) => [n[0], n[1]]));
+
+    const reqs = st.requests.map((r) => ({ ...r, bg: STATUS[r.status][0], fg: STATUS[r.status][1] }));
+    const thuPicked = !!st.picked.s1;
+    const weekDef = [['Mon', '26', '8a–4p', 'me'], ['Tue', '27', '8a–4p', 'me'], ['Wed', '28', 'Off', 'off'], ['Thu', '29', thuPicked ? '12–8p · picked up' : '12–8p · open', thuPicked ? 'me' : 'open'], ['Fri', '30', '8a–4p', 'me'], ['Sat', '31', 'Off', 'off'], ['Sun', '01', 'Off', 'off']];
+    const week = weekDef.map(([day, date, hours, k]) => ({ day, date, hours, bg: k === 'me' ? 'var(--cl-paper)' : k === 'open' ? 'var(--cl-red)' : 'var(--cl-cream)', fg: k === 'open' ? 'var(--cl-paper)' : k === 'off' ? 'var(--cl-ink-muted)' : 'var(--cl-ink)' }));
+
+    const q = st.query.trim().toLowerCase();
+    const has = (s) => s.toLowerCase().includes(q);
+    const results = !q ? [] : [
+      ...PEOPLE.filter((p) => has(p.name + p.role + S(p.site).name)).map((p) => ({ type: 'Person', title: p.name, meta: p.role + ' · ext. ' + p.ext, tint: 'var(--cl-blue)', go: go('person', p.id) })),
+      ...DOCS.filter((d) => has(d.name + d.dept)).map((d) => ({ type: d.type === 'policy' ? 'Policy' : 'Form', title: d.name, meta: d.dept + ' · ' + d.format, tint: 'var(--cl-purple)', go: go('doc', d.id) })),
+      ...SITES.filter((s) => has(s.name + s.borough)).map((s) => ({ type: 'Site', title: s.name, meta: s.borough, tint: 'var(--cl-orange)', go: go('site', s.id) })),
+    ].slice(0, 7);
+
+    const annMap = (a) => ({ ...a, go: go('article', a.id) });
+    const fq = st.formQuery.trim().toLowerCase();
+    const libDocs = DOCS.filter((d) => d.type === libType);
+    const formList = libDocs.filter((d) => (st.dept === 'All' || d.dept === st.dept) && (!fq || (d.name + d.note + d.dept).toLowerCase().includes(fq))).map((d) => ({ ...d, go: go('doc', d.id) }));
+    const pq = st.peopleQuery.trim().toLowerCase();
+    const personCard = (p) => ({ ...p, initials: ini(p.name), siteName: S(p.site).name, go: go('person', p.id) });
+    const peopleList = PEOPLE.filter((p) => (st.program === 'All' || p.program === st.program) && (!pq || (p.name + p.role + S(p.site).name + p.program).toLowerCase().includes(pq))).map(personCard);
+
+    let head = null, article = null, doc = null, person = null, site = null;
+    const crumbs = [{ label: 'Home', go: go('home'), tint: pg === 'home' ? 'var(--cl-ink)' : 'var(--cl-ink-muted)' }];
+    if (pg !== 'home') crumbs.push({ label: '/ ' + navLabel[section], go: go(section), tint: ['article', 'doc', 'person', 'site'].includes(pg) ? 'var(--cl-ink-muted)' : 'var(--cl-ink)' });
+
+    if (pg === 'announcements') head = { eyebrow: '§ Announcements', accent: 'var(--cl-purple)', title: 'From leadership, HR, and the sites.', lede: 'Everything official, in one place. Spanish versions are linked inside each post.' };
+    if (pg === 'article') { const a = ANN.find((x) => x.id === st.id) || ANN[0]; head = { eyebrow: a.kind + ' · ' + a.date, accent: 'var(--cl-orange)', title: a.title, lede: a.dek }; article = { paras: a.paras, author: '— ' + a.author, more: ANN.filter((x) => x.id !== a.id).slice(0, 3).map(annMap) }; crumbs.push({ label: '/ ' + a.title, go: () => {}, tint: 'var(--cl-ink)' }); }
+    if (pg === 'forms') head = { eyebrow: '§ Forms', accent: 'var(--cl-purple)', title: 'Forms.', lede: 'Every current form, filed by department. Online forms go straight to the Help desk.' };
+    if (pg === 'policies') head = { eyebrow: '§ Policies', accent: 'var(--cl-blue)', title: 'Policies.', lede: 'The current version of every policy, filed by the department that owns it.' };
+    if (pg === 'doc') {
+      const d = curDoc, kind = d.type === 'policy' ? 'Policy' : 'Form';
+      head = { eyebrow: d.dept + ' · ' + kind, accent: 'var(--cl-purple)', title: d.name, lede: d.note };
+      const isWeb = !!d.req, dl = st.downloaded[d.id];
+      doc = { format: d.format, size: isWeb ? 'Online form' : d.size, rows: [{ k: 'Department', v: d.dept }, { k: 'Type', v: kind }, { k: 'Last updated', v: d.updated }, { k: 'Applies to', v: 'All Comunilife staff' }],
+        actionLabel: isWeb ? 'Start this form →' : dl ? 'Downloaded — open again →' : 'Download ' + d.format + ' →',
+        status: isWeb ? 'Opens in the Help desk. Takes about two minutes.' : dl ? 'Saved to your Downloads folder.' : 'Spanish version available on request.',
+        action: isWeb ? go('help', null, { reqType: d.req, submitted: null }) : () => this.setState((s) => ({ downloaded: { ...s.downloaded, [d.id]: true } })) };
+      crumbs.push({ label: '/ ' + d.name, go: () => {}, tint: 'var(--cl-ink)' });
+    }
+    if (pg === 'people') head = { eyebrow: '§ Directory', accent: 'var(--cl-blue)', title: 'Who to call.', lede: '612 colleagues across 23 sites in the Bronx, Brooklyn, Manhattan, and Queens.' };
+    if (pg === 'person') {
+      const p = P(st.id) || PEOPLE[0], s = S(p.site), m = p.mgr && P(p.mgr);
+      head = { eyebrow: p.program, accent: 'var(--cl-purple)', title: p.name + '.', lede: p.role + ' at ' + s.name + '.' };
+      const row = (k, v, g) => ({ k, v, go: g || (() => {}), tint: g ? 'var(--cl-orange)' : 'var(--cl-ink)' });
+      person = { ...p, initials: ini(p.name), first: p.name.split(' ')[0], siteName: s.name, mailto: 'mailto:' + p.name.split(' ')[0][0].toLowerCase() + p.name.split(' ').slice(-1)[0].toLowerCase().replace(/[^a-z]/g, '') + '@comunilife.org', tel: 'tel:' + s.phone,
+        goSite: go('site', s.id),
+        rows: [row('Site', s.name, go('site', s.id)), row('Reports to', m ? m.name : '—', m ? go('person', m.id) : null), row('Extension', p.ext), row('Languages', p.langs), row('With us since', p.since)] };
+      crumbs.push({ label: '/ ' + p.name, go: () => {}, tint: 'var(--cl-ink)' });
+    }
+    if (pg === 'sites') head = { eyebrow: '§ Sites', accent: 'var(--cl-orange)', title: 'Every address, every lead.', lede: 'Program sites and offices across four boroughs.' };
+    if (pg === 'site') {
+      const s = S(st.id) || SITES[0], l = P(s.lead);
+      head = { eyebrow: s.borough + ' · ' + s.program, accent: 'var(--cl-orange)', title: s.name + '.', lede: s.units + '.' };
+      site = { rows: [{ k: 'Address', v: s.address, go: () => {}, tint: 'var(--cl-ink)' }, { k: 'Main line', v: s.phone, go: () => {}, tint: 'var(--cl-ink)' }, { k: 'Site lead', v: l.name, go: go('person', l.id), tint: 'var(--cl-orange)' }, { k: 'Program', v: s.program, go: () => {}, tint: 'var(--cl-ink)' }],
+        staff: PEOPLE.filter((p) => p.site === s.id).map(personCard),
+        goWorkOrder: go('help', null, { reqType: 'facilities', submitted: null }), goIncident: go('help', null, { reqType: 'incident', submitted: null }) };
+      crumbs.push({ label: '/ ' + s.name, go: () => {}, tint: 'var(--cl-ink)' });
+    }
+    if (pg === 'schedule') head = { eyebrow: '§ Schedule · Week of Oct 26', accent: 'var(--cl-red)', title: 'Your week at Sea Park East.', lede: thuPicked ? 'You’re covering Thursday. Darnell has been notified.' : 'Thursday’s evening shift still needs cover.' };
+    if (pg === 'benefits') head = { eyebrow: '§ Benefits & HR', accent: 'var(--cl-purple)', title: 'Benefits, pay, and time.', lede: 'Open enrollment closes Friday, Oct 30 at 5pm. Questions in English or Spanish: Marcus Feld, ext. 2012.' };
+    if (pg === 'training') head = { eyebrow: '§ Training', accent: 'var(--cl-blue)', title: 'Required this year.', lede: 'Due by December 31. Progress saves as you go.' };
+    if (pg === 'help') head = { eyebrow: '§ Help desk', accent: 'var(--cl-orange)', title: 'Ask for something.', lede: 'Time off, IT, facilities, and incident reports — tracked in one list.' };
+
+    const modDef = [['m1', 'HIPAA & participant privacy', '25 min'], ['m2', 'Workplace conduct & anti-harassment', '30 min'], ['m3', 'Trauma-informed care, module 3', '45 min'], ['m4', 'Naloxone administration refresher', '20 min'], ['m5', 'Fire safety & evacuation', '15 min']];
+    const modules = modDef.map(([id, title, len], i) => {
+      const p = st.mods[id], done = p >= 100;
+      return { n: String(i + 1).padStart(2, '0'), title, meta: len + (done ? ' · Complete' : p ? ' · ' + p + '% done' : ' · Not started'), pct: p + '%', bar: done ? 'var(--cl-blue)' : 'var(--cl-orange)', label: done ? 'Review' : p ? 'Resume →' : 'Start →', ...(done ? this.chip(false) : this.chip(true)), go: () => this.setState((s) => ({ mods: { ...s.mods, [id]: Math.min(100, (s.mods[id] || 0) + 40 >= 100 ? 100 : (s.mods[id] || 0) + 40) } })) };
+    });
+    const m3 = st.mods.m3;
+
+    const rt = REQ[st.reqType];
+    const reqType = { ...rt, fields: rt.fields.map(([label, type, options]) => ({ label, type, options: options || [], isSelect: type === 'select', isArea: type === 'area', isInput: type !== 'select' && type !== 'area' })) };
+
+    const openShifts = [['s1', 'Thu Oct 29 · 12–8p', 'Sea Park East · Residential aide'], ['s2', 'Sat Oct 31 · 8a–4p', 'East New York · Front desk'], ['s3', 'Sun Nov 01 · 4p–12a', 'Mott Haven · Overnight'], ['s4', 'Tue Nov 03 · 8a–4p', 'Sea Park East · Case management']].map(([id, when, where]) => {
+      const on = !!st.picked[id];
+      return { when, where, label: on ? 'Picked up — undo' : 'Pick up →', ...this.chip(!on), go: () => this.setState((s) => ({ picked: { ...s.picked, [id]: !s.picked[id] } })) };
+    });
+
+    const mob = st.w < 760;
+    const m = mob ? {
+      shell: 'minmax(0, 1fr)', aside: 'none', mainPad: '20px 20px 64px', mainGap: '28px', searchPad: '16px 18px', searchCols: '56px minmax(0, 1fr)', desk: 'none', desk2: 'none', mob: 'block',
+      weekCols: 'minmax(0, 1fr)', dayDir: 'row', dayAlign: 'baseline', dayMin: '0', dayMinL: '0', hoursML: 'auto', annCols: 'minmax(0, 1fr)', annGap: '8px', span2: 'auto',
+      formCols: 'minmax(0, 1fr) auto', inputFs: '16px', trainCols: '32px minmax(0, 1fr) auto', trainGap: '12px', panelPad: '24px',
+    } : {
+      shell: 'clamp(200px, 20vw, 264px) minmax(0, 1fr)', aside: 'flex', mainPad: '32px clamp(24px, 4vw, 56px) 80px', mainGap: '40px', searchPad: '22px 24px', searchCols: '80px minmax(0, 1fr) auto', desk: 'inline', desk2: 'block', mob: 'none',
+      weekCols: 'repeat(7, minmax(0, 1fr))', dayDir: 'column', dayAlign: 'stretch', dayMin: '110px', dayMinL: '140px', hoursML: '0', annCols: '140px minmax(0, 1fr)', annGap: '32px', span2: 'span 2',
+      formCols: 'minmax(0, 1fr) 160px 110px 70px', inputFs: '12px', trainCols: '48px minmax(0, 1fr) 160px auto', trainGap: '20px', panelPad: '32px',
+    };
+    return {
+      m, isMobile: mob, menuOpen: mob && st.menu, menuLabel: st.menu ? 'Close' : 'Menu', toggleMenu: () => this.setState((s) => ({ menu: !s.menu })),
+      nav: navDef.map(([k, label, count]) => ({ label, count, go: go(k), tint: section === k ? 'var(--cl-orange)' : 'var(--cl-paper)' })),
+      crumbs, goHome: go('home'), goOnCall: go('person', 'ar'), goMe: go('person', 'mv'), goSchedule: go('schedule'), goHelp: go('help', null, { submitted: null }), goAnn: go('announcements'),
+      langLabel: st.lang === 'EN' ? 'EN / es' : 'en / ES', toggleLang: () => this.setState((s) => ({ lang: s.lang === 'EN' ? 'ES' : 'EN' })),
+      isHome: pg === 'home', isAnn: pg === 'announcements', isArticle: pg === 'article', isLib: pg === 'forms' || pg === 'policies', libPlaceholder: pg === 'policies' ? 'Search policies' : 'Search forms', isDoc: pg === 'doc', isPeople: pg === 'people', isPerson: pg === 'person', isSites: pg === 'sites', isSite: pg === 'site', isSchedule: pg === 'schedule', isBenefits: pg === 'benefits', isTraining: pg === 'training', isHelp: pg === 'help',
+      hasHead: !!head, head: head || { eyebrow: '', title: '', lede: '', accent: 'var(--cl-ink)' }, article: article || { paras: [], more: [] }, doc: doc || { rows: [] }, person: person || { rows: [] }, site: site || { rows: [], staff: [] },
+
+      query: st.query, onQuery: (e) => this.setState({ query: e.target.value }), hasQuery: !!q, results, noResults: !!q && !results.length,
+      suggestions: ['Time off', 'Darnell', 'Incident report', 'Fordham', 'Benefits'].map((l) => ({ label: l, go: () => this.setState({ query: l }) })),
+      todos: [
+        st.fsaDone ? { tag: 'Done', title: 'FSA re-elected for 2027', cta: 'View benefits', bg: 'var(--cl-cream)', fg: 'var(--cl-ink)', go: go('benefits') } : { tag: 'Due Fri', title: 'Re-elect your FSA for 2027', cta: 'Open enrollment', bg: 'var(--cl-orange)', fg: 'var(--cl-ink)', go: go('benefits') },
+        thuPicked ? { tag: 'Covered', title: 'You’re on Thu 12–8p', cta: 'View schedule', bg: 'var(--cl-cream)', fg: 'var(--cl-ink)', go: go('schedule') } : { tag: 'Needs cover', title: 'Thu 12–8p at Sea Park East', cta: 'Pick up shift', bg: 'var(--cl-red)', fg: 'var(--cl-paper)', go: go('schedule') },
+        { tag: 'Training', title: 'Trauma-informed care, module 3', cta: m3 >= 100 ? 'Complete' : 'Resume · ' + m3 + '%', bg: 'var(--cl-sky)', fg: 'var(--cl-ink)', go: go('training') },
+        { tag: 'Approved', title: 'Your time off for Nov 26–27', cta: 'View request', bg: 'var(--cl-cream)', fg: 'var(--cl-ink)', go: go('help', null, { submitted: null }) },
+      ],
+      week, myRequests: reqs, myRequests4: reqs.slice(0, 4),
+      quickReqs: [['timeoff', 'Time off'], ['it', 'IT ticket'], ['facilities', 'Work order']].map(([k, label]) => ({ label, go: go('help', null, { reqType: k, submitted: null }) })),
+      annTop: ANN.slice(0, 3).map(annMap),
+      annTabs: ['All', 'All staff', 'HR', 'Sites'].map((l) => ({ label: l, go: () => this.setState({ ann: l }), ...this.chip(st.ann === l) })),
+      annList: ANN.filter((a) => st.ann === 'All' || a.kind === st.ann).map(annMap),
+
+      formQuery: st.formQuery, onFormQuery: (e) => this.setState({ formQuery: e.target.value }), formList, noForms: !formList.length,
+      formCats: ['All', ...new Set(libDocs.map((d) => d.dept))].map((c) => ({ label: c, go: () => this.setState({ dept: c }), ...this.chip(st.dept === c) })),
+      peopleQuery: st.peopleQuery, onPeopleQuery: (e) => this.setState({ peopleQuery: e.target.value }), peopleList, noPeople: !peopleList.length,
+      programFilters: ['All', 'Health & Housing', 'Life is Precious™', 'Medical Respite', 'Community Engagement', 'Administration'].map((c) => ({ label: c, go: () => this.setState({ program: c }), ...this.chip(st.program === c) })),
+      boroughs: ['All', 'Bronx', 'Brooklyn', 'Manhattan', 'Queens'].map((b) => ({ label: b, go: () => this.setState({ borough: b }), ...this.chip(st.borough === b) })),
+      siteList: SITES.filter((s) => st.borough === 'All' || s.borough === st.borough).map((s) => ({ ...s, leadName: P(s.lead).name, go: go('site', s.id) })),
+
+      openShifts,
+      swapOpts: ['Mon 26', 'Tue 27', 'Fri 30'].map((l) => ({ label: l, go: () => this.setState({ swap: l, swapSent: false }), ...this.chip(st.swap === l) })),
+      swapLabel: st.swapSent ? 'Swap requested for ' + st.swap + ' — pending' : st.swap ? 'Request swap for ' + st.swap + ' →' : 'Pick a shift above',
+      submitSwap: () => { if (st.swap) this.setState({ swapSent: true }); },
+
+      fsa: st.fsaDone ? { bg: 'var(--cl-sky)', tag: 'Done', title: 'Your FSA is set for 2027.', label: 'Change election', go: () => this.setState({ fsaDone: false }) } : { bg: 'var(--cl-orange)', tag: 'Action needed · closes Fri Oct 30', title: 'Re-elect your FSA for 2027.', label: 'Re-elect $1,200 →', go: () => this.setState({ fsaDone: true }) },
+      plans: [['Medical · EmblemHealth PPO', 'Employee + child · continues', '$142 / mo'], ['Dental · Delta Dental', 'Employee + child · continues', '$18 / mo'], ['Vision · VSP', 'Employee · continues', '$6 / mo'], ['403(b) retirement', '5% + 3% employer match', 'Change →']].map(([name, detail, cost]) => ({ name, detail, cost, go: go('doc', 'd10') })),
+      stubs: ['Pay stub · Oct 23', 'Pay stub · Oct 09', 'Pay stub · Sep 25', 'W-2 · 2025'].map((label) => ({ label, action: st.stubDl[label] ? 'Downloaded' : 'Download PDF →', go: () => this.setState((s) => ({ stubDl: { ...s.stubDl, [label]: true } })) })),
+      holidays: [['Nov 11', 'Veterans Day'], ['Nov 26–27', 'Thanksgiving'], ['Dec 25', 'Christmas Day'], ['Jan 01', 'New Year’s Day'], ['Jan 18', 'Martin Luther King Jr. Day']].map(([d, n]) => ({ d, n })),
+      modules,
+
+      reqType, showForm: !st.submitted, showConfirm: !!st.submitted, confirmId: st.submitted || '',
+      reqTabs: Object.entries(REQ).map(([k, r]) => ({ label: r.label, meta: r.meta, go: () => this.setState({ reqType: k, submitted: null }), bg: st.reqType === k ? 'var(--cl-ink)' : 'var(--cl-paper)', fg: st.reqType === k ? 'var(--cl-paper)' : 'var(--cl-ink)' })),
+      submitReq: (e) => {
+        e.preventDefault();
+        const vals = [...new FormData(e.target).values()].filter(Boolean);
+        const num = '#' + (4500 + st.requests.length);
+        this.setState((s) => ({ submitted: num, requests: [{ title: rt.label + (vals[0] ? ' · ' + vals[0] : ''), meta: rt.meta.split(' · ')[0] + ' ' + num + ' · filed just now', status: 'Submitted' }, ...s.requests] }));
+      },
+      resetReq: () => this.setState({ submitted: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>

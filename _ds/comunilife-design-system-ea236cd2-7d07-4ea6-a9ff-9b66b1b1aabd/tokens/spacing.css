@@ -1,0 +1,43 @@
+/* Comunilife spacing, borders & radii — base-scale values from the .fig. */
+:root {
+  /* Layout */
+  --layout-max-width: 1400px;      /* content container */
+  --layout-page-pad-x: 148px;      /* section horizontal padding (desktop) */
+  --layout-section-pad-y: 100px;   /* standard section vertical padding */
+  --layout-section-pad-y-lg: 120px;
+  --layout-grid-gap: 48px;         /* standard grid gutter */
+  --layout-grid-gap-lg: 80px;
+
+  /* Component spacing */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-16: 16px;
+  --space-18: 18px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-80: 80px;
+
+  /* Borders & radii — the system is almost entirely square-cornered */
+  --border-w: 1px;                 /* hairlines everywhere */
+  --radius-none: 0px;              /* buttons, cards, panels: square */
+  --radius-soft: 4px;              /* donate-page primary button only */
+  --radius-card: 8px;              /* giving cards only */
+  --radius-full: 999px;            /* dots & avatars */
+  --dot-size: 8px;                 /* ticker/marquee dot */
+}
+
+/* Global element defaults */
+body {
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  margin: 0;
+}
+a { color: var(--cl-ink); }
+a:hover { color: var(--cl-orange); }
