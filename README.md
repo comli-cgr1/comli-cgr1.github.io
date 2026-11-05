@@ -6,6 +6,7 @@ Static GitHub Pages build of the "Comunilife Intranet B – Desk v2" design expo
 - `support.js` – runtime that renders the template; loads React 18 from unpkg
 - `_ds/` – Comunilife design-system tokens, fonts and components
 - `.nojekyll` – keeps GitHub Pages from skipping the `_ds` folder
+- `v1/`, `v2/` – self-contained "Comunilife Intranet" v1 and v2 exports (React and the design system are embedded), served at `/v1/` and `/v2/`
 
 To preview locally, serve the folder over HTTP (opening the file directly won't work):
 
